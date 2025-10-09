@@ -9,7 +9,7 @@ const SECRET_KEY = "GG2024";
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwHsZFnCPbR_cpA_SRiIVEOk0O4E0Rx7s92-YJqjiwd46SR6nlYq696E7sPe6BJG9I2Lg/exec'; 
 
 // Tiempo de inactividad para el bloqueo automático (5000ms = 5 segundos).
-const INACTIVITY_TIME_MS = 5000; 
+const INACTIVITY_TIME_MS = 10000; 
 
 // Horarios de disponibilidad (cambiar según sea necesario)
 const SCHEDULED_RANGES = [
@@ -111,7 +111,7 @@ function lockFormAutomatically() {
     if (isManuallyUnlocked) {
         isManuallyUnlocked = false; 
         checkSchedule(); 
-        alert("El formulario se ha bloqueado automáticamente por 5 segundos de inactividad.");
+        alert("El formulario se ha bloqueado automáticamente por 10 segundos de inactividad.");
     }
 }
 
@@ -291,3 +291,4 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener(eventType, resetInactivityTimer, false);
     });
 });
+
