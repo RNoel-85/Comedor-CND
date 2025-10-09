@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Interactivo de Satisfacción</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="satisfaction-panel" id="satisfaction-panel">
+        
+        <div class="datetime-display" id="current-datetime"></div>
+
+        <div class="disabled-overlay" id="disabled-overlay">
+            <p onclick="promptUnlockClock()"><i class="fas fa-clock clickable-icon"></i> El formulario está disponible solo en horarios específicos.</p>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><span class="red-box"></span> Insatisfacción</div>
+            <div class="legend-item"><span class="yellow-box"></span> Neutral</div>
+            <div class="legend-item"><span class="green-box"></span> Satisfacción</div>
+        </div>
+
+        <div class="question-row blue" data-question="utensilios">
+            <div class="icon-container"><i class="fas fa-utensils fa-2x"></i></div>
+            <div class="question-text">¿Los utensilios de comida están secos y limpios?</div>
+            <div class="response-container">
+                <div class="vote-option" onclick="incrementVote('utensilios', 'red')">
+                    <i class="fas fa-frown response-icon red"></i>
+                    <span class="count" id="utensilios-red-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('utensilios', 'yellow')">
+                    <i class="fas fa-meh response-icon yellow"></i>
+                    <span class="count" id="utensilios-yellow-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('utensilios', 'green')">
+                    <i class="fas fa-smile response-icon green"></i>
+                    <span class="count" id="utensilios-green-count">0%</span>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar red-bar" id="utensilios-red-bar" style="width: 0%;"></div>
+                <div class="progress-bar yellow-bar" id="utensilios-yellow-bar" style="width: 0%;"></div>
+                <div class="progress-bar green-bar" id="utensilios-green-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="question-row orange" data-question="menu">
+            <div class="icon-container"><i class="fas fa-book-open fa-2x"></i></div>
+            <div class="question-text">¿El menú es variado y de calidad?</div>
+            <div class="response-container">
+                <div class="vote-option" onclick="incrementVote('menu', 'red')">
+                    <i class="fas fa-frown response-icon red"></i>
+                    <span class="count" id="menu-red-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('menu', 'yellow')">
+                    <i class="fas fa-meh response-icon yellow"></i>
+                    <span class="count" id="menu-yellow-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('menu', 'green')">
+                    <i class="fas fa-smile response-icon green"></i>
+                    <span class="count" id="menu-green-count">0%</span>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar red-bar" id="menu-red-bar" style="width: 0%;"></div>
+                <div class="progress-bar yellow-bar" id="menu-yellow-bar" style="width: 0%;"></div>
+                <div class="progress-bar green-bar" id="menu-green-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="question-row green-dark" data-question="cantidad">
+            <div class="icon-container"><i class="fas fa-bowl-rice fa-2x"></i></div>
+            <div class="question-text">¿La cantidad de comida es suficiente?</div>
+            <div class="response-container">
+                <div class="vote-option" onclick="incrementVote('cantidad', 'red')">
+                    <i class="fas fa-frown response-icon red"></i>
+                    <span class="count" id="cantidad-red-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('cantidad', 'yellow')">
+                    <i class="fas fa-meh response-icon yellow"></i>
+                    <span class="count" id="cantidad-yellow-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('cantidad', 'green')">
+                    <i class="fas fa-smile response-icon green"></i>
+                    <span class="count" id="cantidad-green-count">0%</span>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar red-bar" id="cantidad-red-bar" style="width: 0%;"></div>
+                <div class="progress-bar yellow-bar" id="cantidad-yellow-bar" style="width: 0%;"></div>
+                <div class="progress-bar green-bar" id="cantidad-green-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="question-row purple" data-question="higiene">
+            <div class="icon-container"><i class="fas fa-hand-sparkles fa-2x"></i></div>
+            <div class="question-text">¿Se nota la higiene en las mesas y demás áreas?</div>
+            <div class="response-container">
+                <div class="vote-option" onclick="incrementVote('higiene', 'red')">
+                    <i class="fas fa-frown response-icon red"></i>
+                    <span class="count" id="higiene-red-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('higiene', 'yellow')">
+                    <i class="fas fa-meh response-icon yellow"></i>
+                    <span class="count" id="higiene-yellow-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('higiene', 'green')">
+                    <i class="fas fa-smile response-icon green"></i>
+                    <span class="count" id="higiene-green-count">0%</span>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar red-bar" id="higiene-red-bar" style="width: 0%;"></div>
+                <div class="progress-bar yellow-bar" id="higiene-yellow-bar" style="width: 0%;"></div>
+                <div class="progress-bar green-bar" id="higiene-green-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="question-row gray" data-question="atencion">
+            <div class="icon-container"><i class="fas fa-user-tie fa-2x"></i></div>
+            <div class="question-text">¿La atención del personal es buena?</div>
+            <div class="response-container">
+                <div class="vote-option" onclick="incrementVote('atencion', 'red')">
+                    <i class="fas fa-frown response-icon red"></i>
+                    <span class="count" id="atencion-red-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('atencion', 'yellow')">
+                    <i class="fas fa-meh response-icon yellow"></i>
+                    <span class="count" id="atencion-yellow-count">0%</span>
+                </div>
+                <div class="vote-option" onclick="incrementVote('atencion', 'green')">
+                    <i class="fas fa-smile response-icon green"></i>
+                    <span class="count" id="atencion-green-count">0%</span>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar red-bar" id="atencion-red-bar" style="width: 0%;"></div>
+                <div class="progress-bar yellow-bar" id="atencion-yellow-bar" style="width: 0%;"></div>
+                <div class="progress-bar green-bar" id="atencion-green-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+        
+        <h3 class="general-title">Nivel general de satisfacción</h3>
+        <div class="general-satisfaction-bar">
+            <div class="bar red-bar" id="general-red-bar" style="width: 0%;"></div>
+            <div class="bar yellow-bar" id="general-yellow-bar" style="width: 0%;"></div>
+            <div class="bar green-bar" id="general-green-bar" style="width: 0%;"></div>
+        </div>
+        
+        <div class="reset-container">
+             <button class="reset-button" onclick="promptReset()">
+                <i class="fas fa-sync-alt"></i> Reiniciar Datos
+             </button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Colores base */
+:root {
+    --color-red: #d94444; 
+    --color-yellow: #f2c94c; 
+    --color-green: #37b75a; 
+    --color-blue: #4a90e2; 
+    --color-orange: #f5a623; 
+    --color-green-dark: #4b863d; 
+    --color-purple: #9013fe; 
+    --color-gray: #a3a3a3; 
+    --color-reset-bg: #e74c3c; 
+}
+
+.satisfaction-panel {
+    width: 100%;
+    max-width: 700px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative; 
+}
+
+/* -------------------------------------- */
+/* ESTILO DEL TEMPORIZADOR Y BLOQUEO */
+/* -------------------------------------- */
+.disabled-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); 
+    z-index: 1000;
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    /* El cursor general es 'not-allowed', pero queremos que el texto sea pulsable */
+}
+
+.disabled-overlay p {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #c0392b;
+    border: 2px dashed #c0392b;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer; /* Hace que el texto completo parezca pulsable */
+}
+
+/* Estilo para el ícono del reloj para enfatizar que se puede pulsar */
+.clickable-icon {
+    transition: transform 0.1s ease-in-out;
+}
+
+.disabled-overlay p:hover .clickable-icon {
+    transform: scale(1.1);
+}
+
+/* Estilo para la fecha y hora */
+.datetime-display {
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    text-align: right;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* Leyenda */
+.legend {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    font-size: 0.9em;
+    gap: 15px;
+    font-weight: bold;
+}
+.legend-item { display: flex; align-items: center; }
+.legend-item span { width: 15px; height: 15px; margin-right: 5px; border-radius: 3px; }
+.red-box { background-color: var(--color-red); }
+.yellow-box { background-color: var(--color-yellow); }
+.green-box { background-color: var(--color-green); }
+
+
+/* Filas de Preguntas */
+.question-row {
+    display: flex;
+    flex-wrap: wrap; 
+    align-items: center;
+    padding: 10px 15px 0 15px; 
+    color: white;
+    min-height: 120px; 
+    margin-bottom: 5px; 
+    box-sizing: border-box;
+    position: relative;
+}
+.blue { background-color: var(--color-blue); }
+.orange { background-color: var(--color-orange); }
+.green-dark { background-color: var(--color-green-dark); }
+.purple { background-color: var(--color-purple); }
+.gray { background-color: var(--color-gray); }
+
+.icon-container { padding-right: 15px; font-size: 1.5em; }
+.question-text { flex-grow: 1; font-size: 1.1em; font-weight: bold; }
+
+/* Opciones de Voto (Caritas) */
+.response-container {
+    display: flex;
+    gap: 15px;
+    margin-left: auto; 
+    align-items: center;
+    padding-bottom: 15px; 
+}
+
+.vote-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer; 
+    font-weight: bold;
+}
+
+/* Estilos de la Carita (Ícono) */
+.response-icon {
+    font-size: 2.5em; 
+    margin-bottom: 5px;
+    transition: transform 0.1s ease-out; 
+}
+
+.response-icon.red { color: var(--color-red); }
+.response-icon.yellow { color: var(--color-yellow); }
+.response-icon.green { color: var(--color-green); }
+
+/* Animación de Clic (Presión) */
+.vote-option:active .response-icon {
+    transform: scale(0.85); 
+}
+
+.vote-option:hover .response-icon {
+    transform: scale(1.1); 
+}
+
+.count {
+    font-size: 0.9em;
+    padding: 2px 0;
+    width: 50px; 
+    text-align: center;
+    color: white; 
+}
+
+/* Barras de Progreso Dinámicas */
+.progress-bar-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px; 
+    display: flex;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    transition: width 0.3s ease-out; 
+}
+
+.red-bar { background-color: var(--color-red); }
+.yellow-bar { background-color: var(--color-yellow); }
+.green-bar { background-color: var(--color-green); }
+
+/* Nivel General de Satisfacción */
+.general-title {
+    text-align: center;
+    padding: 15px;
+    margin: 0;
+    background-color: #e0e0e0;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.general-satisfaction-bar {
+    display: flex;
+    height: 30px; 
+    width: 100%;
+    margin-bottom: 15px;
+}
+.bar { height: 100%; }
+
+/* Estilos del Botón de Reinicio */
+.reset-container {
+    padding: 15px;
+    text-align: center;
+    background-color: #f0f0f0;
+    border-top: 1px solid #ddd;
+    display: flex; 
+    justify-content: center;
+    gap: 15px; 
+}
+
+.reset-button {
+    background-color: var(--color-reset-bg);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-weight: bold;
+}
+
+.reset-button:hover {
+    background-color: #c0392b; 
+}
+
+
+/* Media Query para responsividad */
+@media (max-width: 600px) {
+    .question-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 5px;
+        min-height: 140px;
+    }
+    .icon-container {
+        display: none; 
+    }
+    .question-text {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .response-container {
+        width: 100%;
+        justify-content: space-around;
+        margin: 0;
+        padding-bottom: 15px;
+    }
+    .vote-option {
+        flex-grow: 1;
+    }
+    .reset-container {
+        flex-direction: column;
+    }
+}
