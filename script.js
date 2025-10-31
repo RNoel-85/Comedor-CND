@@ -134,7 +134,7 @@ function resetInactivityTimer() {
 
 /** Pide la clave y desbloquea manualmente al pulsar el icono del reloj. */
 function promptUnlockClock() {
-    const key = prompt("Introduce la clave " + SECRET_KEY + " para desbloquear el formulario:");
+    const key = prompt("Introduce la clave para desbloquear el formulario");
     
     if (key === SECRET_KEY) {
         isManuallyUnlocked = true;
@@ -291,4 +291,5 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener(eventType, resetInactivityTimer, false);
     });
 });
+
 
